@@ -18,6 +18,7 @@
 % all information is stored in a monitor structure
 
 %%%%%%%%%%%%%%%%%%%%%%%% MONITOR INFORMATION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 monitorInfo.screenNumber = 0;
 monitorInfo.screenDistcm = 25;
 monitorInfo.screenSizecmX = 32.5; %52;          
@@ -35,5 +36,4 @@ monitorInfo.powerLawScaleFactor = .0001801;
 monitorInfo.gamma = 2.386;
 monitorInfo.waitframes = 1;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 

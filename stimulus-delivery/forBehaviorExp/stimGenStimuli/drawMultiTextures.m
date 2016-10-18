@@ -53,8 +53,8 @@ end
 
 %%%%%%%%%%%%%%%%%%%%% PREPARE for SHIFTING TEXTURE %%%%%%%%%%%%%%%%%%%%%%%%
 if nargin > 2 % when it's not a gray screen
-    % when the input dstRect is a 2-raw matrix, the 1st row is starting
-    % position, and the 2 row is the stopping position.
+    
+    % estimate how many times of screen refresh will be
     n_esti = ceil(duration/(waitframes*ifi));
     n_stim = length(stim);
     % loop for all stimulus
@@ -63,7 +63,8 @@ if nargin > 2 % when it's not a gray screen
         if size(tmp,1) == 1
             tmp(2,:) = tmp(1,:);
         end
-        % estimate how many times of screen refresh will be
+        % when the input dstRect is a 2-raw matrix, the 1st row is starting
+        % position, and the 2 row is the stopping position.
         stim(i).pix2MovePerFrame = diff(tmp(:,[1 2]))/n_esti;
     end
 end
@@ -94,8 +95,8 @@ while (vbl < runtime)
     % reached
     
     if nargin > 2 % draw a texture
-        for i = n_stim
-            sizeInPix = max(stim(i).dstRect(1,[3 4])-stim(i).distRect(1,[1 2]));
+        for i = 1:n_stim
+            sizeInPix = max(stim(i).dstRect(1,[3 4])-stim(i).dstRect(1,[1 2]));
             xoffset = mod(n*stim(i).shiftperframe,stim(i).pxPerCycle);
             
             % Set the source rect to excise the grating from

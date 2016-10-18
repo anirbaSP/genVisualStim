@@ -1,16 +1,19 @@
+#.OSX
+*.DS_Store
+
 # Libraries
-*.lvlibp
-*.llb
+#*.lvlibp
+#*.llb
 
 # Shared objects (inc. Windows DLLs)
-*.dll
-*.so
-*.so.*
-*.dylib
+#*.dll
+#*.so
+#*.so.*
+#*.dylib
 
 # Executables
-*.exe
+#*.exe
 
 # Metadata
-*.aliases
-*.lvlps
+#*.aliases
+#*.lvlps

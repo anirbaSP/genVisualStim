@@ -35,7 +35,7 @@ function KbCheckFlag = DelayedMatchToSample(trialKey, screenInfo, stim)
 %   'orientation'
 %   'sizeInPix'
 %   'pixPerCycle'
-%   
+%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Written by PSX/10-07-2016
 % Modified by: PSX/
@@ -46,7 +46,7 @@ function KbCheckFlag = DelayedMatchToSample(trialKey, screenInfo, stim)
 % trialKey = '1';
 % screenInfo = initializeScreen;
 % screenInfo = setflipCheckforScreen(screenInfo, 'trial');
-% 
+%
 % % % create a simple vsPool with only two different stimulus
 % vsPool = genVSPool(screenInfo);
 % stim = vsPool(1);
@@ -62,12 +62,12 @@ screenSizePixY = screenInfo.screenSizePixY;
 colIdxv = [1 3];
 
 % start from the center
-colIdx = mean(colIdxv); 
+colIdx = mean(colIdxv);
 xLoc_start = screenSizePixX/(3*2) * (2*colIdx-1);
 yLoc_start = screenSizePixY/(1*2) * (2*1-1);
 
 % stop at the side dictated by trialKey
-colIdx = colIdxv(str2num(trialKey)); 
+colIdx = colIdxv(str2num(trialKey));
 xLoc_stop = screenSizePixX/(3*2) * (2*colIdx-1);
 yLoc_stop = screenSizePixY/(1*2) * (2*1-1);
 
@@ -82,9 +82,11 @@ dstRect = [0 0 sizeInPix+1 sizeInPix+1];
 dstRect_start = CenterRectOnPoint(dstRect,xLoc_start,yLoc_start);
 dstRect_stop = CenterRectOnPoint(dstRect,xLoc_stop,yLoc_stop);
 % for non-matched stimulus
-sizeInPix = stim(2).sizeInPix;
-dstRect = [0 0 sizeInPix+1 sizeInPix+1];
-dstRect_nonmatch = CenterRectOnPoint(dstRect,xLoc_stop_nonmatch,yLoc_stop_nonmatch);
+if length(stim) == 2
+    sizeInPix = stim(2).sizeInPix;
+    dstRect = [0 0 sizeInPix+1 sizeInPix+1];
+    dstRect_nonmatch = CenterRectOnPoint(dstRect,xLoc_stop_nonmatch,yLoc_stop_nonmatch);
+end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% DRAW TEXTURES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -98,7 +100,7 @@ dstRect_nonmatch = CenterRectOnPoint(dstRect,xLoc_stop_nonmatch,yLoc_stop_nonmat
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% DRAW CENTER STIMULUS %%%%%%%%%%%%%%%%%%%%%%%%
 stim(1).dstRect = dstRect_start;
-drawTexture(screenInfo, duration, stim(1))
+drawMultiTextures(screenInfo, duration, stim(1))
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% DRAW INTERIM STIMULUS %%%%%%%%%%%%%%%%%%%%%%%
 % draw gray screen
@@ -110,10 +112,12 @@ drawMultiTextures(screenInfo, delay, stim(1))
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% DRAW SIDE STIMULUS %%%%%%%%%%%%%%%%%%%%%%%%%
 stim(1).dstRect = dstRect_stop;
-stim(2).dstRect = dstRect_nonmatch;
+if length(stim) == 2
+    stim(2).dstRect = dstRect_nonmatch;
+end
 
 drawMultiTextures(screenInfo, duration, stim)
 
 %%%%%%%%%%%%%%%%%%%%% REFRESH SCREEN BACK TO BACKGRAOUD %%%%%%%%%%%%%%%%%%%
-drawMultiTexture(screenInfo, 0.1)
+drawMultiTextures(screenInfo, 0.1)
 

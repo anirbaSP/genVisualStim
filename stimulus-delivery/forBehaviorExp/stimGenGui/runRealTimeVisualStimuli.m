@@ -52,8 +52,8 @@ function runRealTimeVisualStimuli(vsPool,stimulusType,screenInfo,connection)
 %%%%%%%%%%%%%%%%%%%%%% DEFAULTS FOR TESTING %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 if nargin < 4
     connection = [];
-    sudoTrial = {'1','2', 'repeat', '1', '2', 'stop', };% 'Blank', '2', '1', 'repeat', 'stop'};
-    stimulusType = 'DelayedMatchToSample'; %'LeftRightMovingVS'; %
+    sudoTrial = {'1','2', 'repeat', '1', '2', '1', '2', '2', '1','2', 'repeat', 'stop', };% 'Blank', '2', '1', 'repeat', 'stop'};
+    stimulusType = 'DelayedMatchToSample'; %'LeftRightMovingVS'; %; % %
     screenInfo = initializeScreen;
     screenInfo = setflipCheckforScreen(screenInfo, 'trial');
     vsPool = genVSPool(screenInfo);
@@ -152,14 +152,17 @@ while ~stopFlag && i< length(sudoTrial)
         case 'Full-field Grating'
             LeftRightFullFieldGrating(thisKey,screenInfo)
         case 'LeftRightMovingVS'
-            LeftRightMovingVS(thisKey, screenInfo, vsPool(thisStimIdx))
+%             LeftRightMovingVS(thisKey, screenInfo, vsPool(thisStimIdx))
+              DelayedMatchToSample(thisKey,screenInfo,vsPool(thisStimIdx))
         case 'DelayedMatchToSample'
             % generate a second unmatched stimulus
-            while size(thisStimIdx, 1) == 1
+            if length(vsPool) > 1
+            while length(thisStimIdx) == 1
                 tmp = ceil(rand * length(vsPool));
                 if ~isequal(tmp, thisStimIdx)
                     thisStimIdx(2) = tmp;
                 end
+            end
             end
             DelayedMatchToSample(thisKey,screenInfo,vsPool(thisStimIdx))
         otherwise
