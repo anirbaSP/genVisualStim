@@ -14,8 +14,15 @@
 %you should have received a copy of the gnu general public license
 %along with this program.  if not, see <http://www.gnu.org/licenses/>.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function argout = commu2host(task, connection, curTrial)
+function argout = commu2host(task, connection, curTrialNum)
+% This function reads the host command. Currently it support UDP
+% communication. Any other comunication type can be added into the cases
+% structure.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Written by PSX/September 2015
+% Modified by: PSX/10-20-2016
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 commuInformation;
 
 if isempty(commuInfo)
@@ -24,7 +31,7 @@ if isempty(commuInfo)
 end
 
 switch commuInfo.type
-    case 'udp' 
+    case 'udp'
         % turn off warning. Because it's normall to wait for udp data from
         % the host machine, turning off the uncessary timeout warning.
         warning('off','all')
@@ -44,6 +51,35 @@ switch commuInfo.type
                 
                 argout = us;
                 
+            case 'getHeader'
+                if nargin < 2
+                    error('Please supply Connection as input')
+                end
+                u = connection;
+                % find the flag for trailkey, the flag is a string
+                curData = '';
+                KbCheckFlag = 0;
+                len = length(commuInfo.headerFlag);
+                while ~strncmp(curData, commuInfo.headerFlag, len)
+                    curData = fscanf(u);
+                    
+                    if KbCheck
+                        KbCheckFlag = 1;
+                        break;
+                    end
+                end
+                % Once find the flag, the next patch of data will be the
+                % header, which is a string
+                
+                if KbCheckFlag
+                    argout = [];
+                else
+                    header = curData(len+1:end); % todo: what if header desen't
+                    % arrive at one time? Consider to add a ending flag
+                    
+                    argout = header;
+                end
+                
             case 'getTrialKeys'
                 if nargin < 2
                     error('Please supply Connection as input')
@@ -56,7 +92,7 @@ switch commuInfo.type
                 while ~strncmp(curData, commuInfo.trialKeysFlag, len)
                     curData = fscanf(u);
                     
-                    if KbCheck    
+                    if KbCheck
                         KbCheckFlag = 1;
                         break;
                     end
@@ -67,40 +103,48 @@ switch commuInfo.type
                 if KbCheckFlag
                     argout = [];
                 else
-                trialKeys = curData(len+1:end);
-                trialKeys = str2num(trialKeys);
-                
-                argout = trialKeys;
+                    trialKeys = curData(len+1:end);
+                    trialKeys = str2num(trialKeys);
+                    
+                    argout = trialKeys;
                 end
                 
-            case 'getTrialStartTrigger' % stop command is also handled here
+            case 'getTrialStartTrigger' % get both trialKey and delay
+                flagc = {commuInfo.triggerFlag, commuInfo.delayFlag};
+                nflag = length(flagc);
                 if nargin < 2
                     error('Please supply Connection as input')
                 end
                 u = connection;
                 curData = '';
                 KbCheckFlag = 0;
-                pos = [];
-                while isempty(pos)
+                value = [];
+                while isempty(value)
                     curData = fscanf(u); % read the current udp data
                     if ~isempty(curData)
-                        stopTrial = strncmp(curData, commuInfo.stopFlag, ...
-                            length(commuInfo.stopFlag)); % check stop
-                        if stopTrial
-                            return % to do: check how to stop experiment 
+                        [namec valuec] = strread(curData, '%s %f');
+                        if any(strcmp(commuInfo.stopFlag, namec))
+                            argout = 'stop';
+                            return
                         else
-                            pos = strfind(curData, commuInfo.triggerFlag);
-                            if KbCheck
-                                KbCheckFlag = 1;
-                                break;
+                            for i = 1:nflag
+                                tmp = strcmp(flagc{i},namec);
+                                thisValue = valuec(tmp);
+                                if length(thisValue) > 1
+                                    thisValue = thisValue(end);
+                                end
+                                value= [value thisValue];
                             end
                         end
                     end
+                    if KbCheck
+                        KbCheckFlag = 1;
+                        break;
+                    end
                 end
+                 argout = value;
                 if KbCheckFlag
                     argout = [];
-                else
-                argout = str2num(curData(length(commuInfo.triggerFlag)+pos:end));
                 end
                 
             case 'reportTrlDone'
@@ -108,9 +152,9 @@ switch commuInfo.type
                     error('Please supply Connection and current trial number as input')
                 end
                 u = connection;
-                fprintf(u, [commuInfo.TrlDoneFlag ' %.3f'], curTrial);
+                fprintf(u, [commuInfo.TrlDoneFlag ' %.3f'], curTrialNum);
                 
-                argout = 0; 
+                argout = 0;
                 
             otherwise
                 error('Undefined task for UDP communication');

@@ -17,18 +17,23 @@
 % This file contains all the monitor information for the Two Photon Rig;
 % all information is stored in a monitor structure
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Written by MSC/2012
+% Modified by: PSX/10-20-2016
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 %%%%%%%%%%%%%%%%%%%%%%%% MONITOR INFORMATION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-monitorInfo.screenNumber = 0;
+monitorInfo.screenNumber = 1;
 monitorInfo.screenDistcm = 25;
-monitorInfo.screenSizecmX = 32.5; %52;          
-monitorInfo.screenSizecmY = 22.7; %29;        
+monitorInfo.screenSizecmX = 52; %32.5; %         
+monitorInfo.screenSizecmY = 29; %22.7; %       
 monitorInfo.screenSizeDegX = 2*atan(monitorInfo.screenSizecmX/2/...
                                 monitorInfo.screenDistcm)*180/pi;
 monitorInfo.screenSizeDegY = 2*atan(monitorInfo.screenSizecmY/2/...
                                 monitorInfo.screenDistcm)*180/pi;
-monitorInfo.screenSizePixX = 1280; %1920;
-monitorInfo.screenSizePixY = 800; %1080;
+monitorInfo.screenSizePixX = 1920; %1280; %
+monitorInfo.screenSizePixY = 1080; %800; %
 monitorInfo.degPerPix = monitorInfo.screenSizeDegX/...
                             monitorInfo.screenSizePixX;
 

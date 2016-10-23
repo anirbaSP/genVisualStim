@@ -1,3 +1,19 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% copyright (c) 2016 Pei Sabrina Xu
+%
+% this program is free software: you can redistribute it and/or modify it
+% under the terms of the gnu general public license as published by the
+% free software foundation, either version 3 of the license, or at your
+% option) any later version.
+%
+% this program is distributed in the hope that it will be useful, but
+% without any warranty; without even the implied warranty of
+% merchantability or fitness for a particular purpose.  see the gnu general
+% public license for more details.
+%
+% you should have received a copy of the gnu general public license along
+% with this program.  if not, see <http://www.gnu.org/licenses/>.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function vsPool = genVSPool(screenInfo)
 % This function generates a pool of visual stimulation. Currently it
 % supports drifting gratings.
@@ -21,7 +37,7 @@ table = {'Spatial Frequency (cpd)', 0.04, .04, 0.04;...
     'Temporal Frequency (cps)', 3, 1, 3;...
     'Contrast (start,end,numsteps)', 1, 1, 1;...
     'Orientation', 0, 45, 315;...
-    'Timing (delay,duration,wait) (s)', 1, 2, 0;...
+    'Timing (delay,duration,wait) (s)', 0, 0, 0;...
     'Blank', 0, [], [];
     'Randomize', 0, [], [];...
     'Interleave', 0, [], [];...
@@ -71,3 +87,4 @@ for i = 1:n_trial
     vsPool(i).pxPerCycle = pxPerCycle;
 end
 
+% save vs pool information

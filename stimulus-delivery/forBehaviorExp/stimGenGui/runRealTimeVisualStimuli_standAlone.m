@@ -48,7 +48,6 @@ function runRealTimeVisualStimuli(vsPool,stimulusType,screenInfo,connection)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Written by PSX/Oct 2016
 % Modified by: PSX/
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%% DEFAULTS FOR TESTING %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 if nargin < 1 
@@ -68,6 +67,25 @@ saveFilePath = '/Users/Sabrina/git/genVisualStim/stimulus-delivery/forBehaviorEx
 save([saveFilePath 'debug_vsPool'], 'vsPool', '-mat');
 fileID = fopen([saveFilePath 'debug_Trial.vstim'], 'w');
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%% TURN OFF PTB SYSTEM CHECK REPORT %%%%%%%%%%%%%%%%%%%%
+Screen('Preference', 'Verbosity',1);
+% This will suppress all but critical warning messages
+% At the end of the code we will return the verbosity back to norm level 3
+% please see the following page for an explanation of this function
+% http://psychtoolbox.org/FaqWarningPrefs
+% NOTE: as you debug your code comment this line because PTB will return
+% back useful info about memory usage that will tell you about leaks that
+% may casue problems
+
+% When Screen('OpenWindow',w,color) is called, PTB performs many checks of
+% your system. The time it takes to perform these checks depends on the
+% noisiness of your system (up to two seconds on 2-photon rig). During this
+% time it displays a white screen which is obviously not good for visual
+% stimulation. We can disable the startup screen using the following. The
+% sreen will now be black before visual stimulus (Matthew Caudill 2012).
+Screen('Preference', 'VisualDebuglevel', 3);
+% see http://psychtoolbox.org/FaqBlueScreen for a reference
 
 % HIDE CURSOR FROM SCREEN
 % HideCursor;

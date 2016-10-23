@@ -14,7 +14,8 @@
 % you should have received a copy of the gnu general public license
 % along with this program.  if not, see <http://www.gnu.org/licenses/>.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function KbCheckFlag = DelayedMatchToSample(trialKey, screenInfo, stim)
+function KbCheckFlag = DelayedMatchToSample(trialKey, screenInfo, stim, ...
+    duration, delay)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % This function draws a given visual stimuli stim, and display the
 % visual stimuli from the center to either left or right on the screen.
@@ -50,10 +51,11 @@ function KbCheckFlag = DelayedMatchToSample(trialKey, screenInfo, stim)
 % % % create a simple vsPool with only two different stimulus
 % vsPool = genVSPool(screenInfo);
 % stim = vsPool(1);
-
+% duration = 1;
+% delay = 0.5;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-duration = 1;
-delay = 0.5;
+Screen('Preference', 'Verbosity',1);
+Screen('Preference', 'VisualDebuglevel', 3);
 %%%%%%%%%%%%%%%%%%%%%% GET SPECIFIC MONITOR INFORMATION %%%%%%%%%%%%%%%%%%%
 screenSizePixX = screenInfo.screenSizePixX;
 screenSizePixY = screenInfo.screenSizePixY;
@@ -119,5 +121,7 @@ end
 drawMultiTextures(screenInfo, duration, stim)
 
 %%%%%%%%%%%%%%%%%%%%% REFRESH SCREEN BACK TO BACKGRAOUD %%%%%%%%%%%%%%%%%%%
-drawMultiTextures(screenInfo, 0.1)
+drawMultiTextures(screenInfo, 0.02)
 
+Screen('Preference', 'Verbosity',3);
+Priority(0);

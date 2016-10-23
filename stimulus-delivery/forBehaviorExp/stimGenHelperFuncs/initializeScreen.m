@@ -1,9 +1,31 @@
-function screenInfo = initializeScreen
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% copyright (c) 2015 Pei Sabrina Xu
+%
+% this program is free software: you can redistribute it and/or modify it
+% under the terms of the gnu general public license as published by the
+% free software foundation, either version 3 of the license, or at your
+% option) any later version.
+%
+% this program is distributed in the hope that it will be useful, but
+% without any warranty; without even the implied warranty of
+% merchantability or fitness for a particular purpose.  see the gnu general
+% public license for more details.
+%
+% you should have received a copy of the gnu general public license along
+% with this program.  if not, see <http://www.gnu.org/licenses/>.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+function screenInfo = initializeScreen
 % Get monitor info from monitorInformation located in RigSpecificInfo dir.
 % This structure contains all the pertinent monitor information we will
 % need such as screen size and appropriate conversions from pixels to
 % visual degrees
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Written by PSX/September 2015
+% Modified by: PSX/
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 monitorInformation;
 
 %================================= to do ==================================
@@ -21,7 +43,7 @@ monitorInformation;
 
 % Screen('Preference', 'SkipSyncTests', 1); at the top of your script, if
 % you really know what you are doing.
-Screen('Preference', 'SkipSyncTests', 1);
+% Screen('Preference', 'SkipSyncTests', 1);
 %================================= to do ==================================
 
 
@@ -158,4 +180,4 @@ end
 % type.
 Screen('Preference', 'Verbosity',3);
 Priority(0);
-ShowCursor;                            
+% ShowCursor;                            
