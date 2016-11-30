@@ -101,7 +101,6 @@ end
 % drawBackgroundScreen(s,delay,s.grayPix);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%% PLAY STIMULUS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-thisKey
 switch stimType
     case 'Full-field Grating'
         LeftRightFullFieldGrating(thisKey,screenInfo)

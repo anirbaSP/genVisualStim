@@ -122,7 +122,7 @@ switch commuInfo.type
                 flagc = {commuInfo.delayFlag};
                 nflag = length(flagc);
                 while isempty(value) || cont2start
-                    curData = fscanf(u) % read the current udp data
+                    curData = fscanf(u); % read the current udp data
                     if ~isempty(curData)
                         [namec valuec] = strread(curData, '%s %f');
                         if any(strcmp(commuInfo.stopFlag, namec))
