@@ -110,8 +110,7 @@ switch commuInfo.type
                 end
                 
             case 'getTrialStartTrigger' % get both trialKey and delay
-                flagc = {commuInfo.triggerFlag, commuInfo.delayFlag};
-                nflag = length(flagc);
+                
                 if nargin < 2
                     error('Please supply Connection as input')
                 end
@@ -119,14 +118,19 @@ switch commuInfo.type
                 curData = '';
                 KbCheckFlag = 0;
                 value = [];
-                while isempty(value)
-                    curData = fscanf(u); % read the current udp data
+                cont2start = 1;
+                flagc = {commuInfo.delayFlag};
+                nflag = length(flagc);
+                while isempty(value) || cont2start
+                    curData = fscanf(u) % read the current udp data
                     if ~isempty(curData)
                         [namec valuec] = strread(curData, '%s %f');
                         if any(strcmp(commuInfo.stopFlag, namec))
                             argout = 'stop';
                             return
                         else
+                            tmp = strcmp(commuInfo.triggerFlag, namec);
+                            triggerValue = valuec(tmp);
                             for i = 1:nflag
                                 tmp = strcmp(flagc{i},namec);
                                 thisValue = valuec(tmp);
@@ -135,6 +139,10 @@ switch commuInfo.type
                                 end
                                 value= [value thisValue];
                             end
+                        end
+                        if ~isempty(triggerValue)
+                            cont2start = 0;
+                            value = [triggerValue value];
                         end
                     end
                     if KbCheck
