@@ -34,6 +34,7 @@ initState.defaultStimType = 'DelayedMatchToSample';
 % List all the stimulus types, --------To be added--------
 initState.defaultStimTypes = {'Left Right Full-field Drifting Grating';
     'LeftRightMovingVS';
+    'DelayedMatchToSampleMove';
     'DelayedMatchToSample'};
 
 % Set the default table matching the above stimulus

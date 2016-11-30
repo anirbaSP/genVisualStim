@@ -101,18 +101,31 @@ end
 % drawBackgroundScreen(s,delay,s.grayPix);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%% PLAY STIMULUS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+thisKey
 switch stimType
     case 'Full-field Grating'
         LeftRightFullFieldGrating(thisKey,screenInfo)
     case 'LeftRightMovingVS'
         % LeftRightMovingVS(thisKey, screenInfo, vsPool(thisStimIdx))
         DelayedMatchToSample(thisKey,screenInfo,vsPool(thisStimIdx),...
-            duration, delay)
+            duration, delay, struct('move', true))
+    case 'DelayedMatchToSampleMove'
+        % generate a second unmatched stimulus
+        if length(vsPool) > 1
+            while length(thisStimIdx) == 1
+                tmp = ceil(rand * length(vsPool)); % randomly choose adistractor
+                if ~isequal(tmp, thisStimIdx)
+                    thisStimIdx(2) = tmp;
+                end
+            end
+        end
+        DelayedMatchToSample(thisKey,screenInfo,vsPool(thisStimIdx), ...
+            duration, delay, struct('move', true))
     case 'DelayedMatchToSample'
         % generate a second unmatched stimulus
         if length(vsPool) > 1
             while length(thisStimIdx) == 1
-                tmp = ceil(rand * length(vsPool));
+                tmp = ceil(rand * length(vsPool)); % randomly choose adistractor
                 if ~isequal(tmp, thisStimIdx)
                     thisStimIdx(2) = tmp;
                 end

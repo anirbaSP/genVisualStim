@@ -15,7 +15,7 @@
 % along with this program.  if not, see <http://www.gnu.org/licenses/>.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function KbCheckFlag = DelayedMatchToSample(trialKey, screenInfo, stim, ...
-    duration, delay)
+    duration, delay, option)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % This function draws a given visual stimuli stim, and display the
 % visual stimuli from the center to either left or right on the screen.
@@ -54,6 +54,11 @@ function KbCheckFlag = DelayedMatchToSample(trialKey, screenInfo, stim, ...
 % duration = 1;
 % delay = 0.5;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+if nargin == 5
+    option = struct(option, 'move', false);
+end
+% default sample is not moving to the target position
+
 Screen('Preference', 'Verbosity',1);
 Screen('Preference', 'VisualDebuglevel', 3);
 %%%%%%%%%%%%%%%%%%%%%% GET SPECIFIC MONITOR INFORMATION %%%%%%%%%%%%%%%%%%%
@@ -105,12 +110,14 @@ stim(1).dstRect = dstRect_start;
 drawMultiTextures(screenInfo, duration, stim(1))
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% DRAW INTERIM STIMULUS %%%%%%%%%%%%%%%%%%%%%%%
-% draw gray screen
-% drawMultiTextures(screenInfo, delay)
-
-% moving stimulus from center to the target side
-stim(1).dstRect = [dstRect_start; dstRect_stop];
-drawMultiTextures(screenInfo, delay, stim(1))
+if option.move
+    % moving stimulus from center to the target side
+    stim(1).dstRect = [dstRect_start; dstRect_stop];
+    drawMultiTextures(screenInfo, delay, stim(1))
+else
+    % draw gray screen
+    drawMultiTextures(screenInfo, delay)
+end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% DRAW SIDE STIMULUS %%%%%%%%%%%%%%%%%%%%%%%%%
 stim(1).dstRect = dstRect_stop;
