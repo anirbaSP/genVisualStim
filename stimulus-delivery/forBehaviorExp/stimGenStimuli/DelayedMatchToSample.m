@@ -55,7 +55,8 @@ function KbCheckFlag = DelayedMatchToSample(trialKey, screenInfo, stim, ...
 % delay = 0.5;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 if nargin == 5
-    option = struct(option, 'move', false);
+    option = struct;
+    option.move = false;
 end
 % default sample is not moving to the target position
 
