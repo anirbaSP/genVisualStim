@@ -53,7 +53,9 @@ initState.autoSave = 1;
 initState.sudoTrial = ...
     {'1','2', '0', '1', '0', 'stop', };% 0 is repeat 'Blank', '2', '1', 'repeat', 'stop'};
 
-initState.delay = 500000; % unit: us
+initState.delay = -500000; % unit: us
 initState.duration = 1;
+
+initState.sudoHeader = 'stimType&DelayedMatchToSample&&fileName&debughost&&delay&-500000&&';
 end
 

@@ -39,7 +39,7 @@ function KbCheckFlag = DelayedMatchToSample(trialKey, screenInfo, stim, ...
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Written by PSX/10-07-2016
-% Modified by: PSX/
+% Modified by: PSX/01-18-2016: handle -/+ delay case
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%% DEFAULTS FOR TESTING %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % % UNCOMMENT THIS SECTION FOR RUNNING STIMULUS AS STAND ALONE
@@ -114,11 +114,22 @@ drawMultiTextures(screenInfo, duration, stim(1))
 if option.move
     % moving stimulus from center to the target side
     stim(1).dstRect = [dstRect_start; dstRect_stop];
-    drawMultiTextures(screenInfo, delay, stim(1))
+    drawMultiTextures(screenInfo, abs(delay), stim(1))
 else
-    % draw gray screen
-    drawMultiTextures(screenInfo, delay)
+    if delay < 0
+        stim(1).dstRect = [dstRect_stop; dstRect_stop];
+        stim(2).dstRect = [dstRect_nonmatch; dstRect_nonmatch];
+        stim(3) = stim(1);
+        stim(3).dstRect = [dstRect_start; dstRect_start];
+        drawMultiTextures(screenInfo, abs(delay), stim)
+        stim(3) = [];
+    end
+    if delay > 0
+        % draw gray screen
+        drawMultiTextures(screenInfo, delay)
+    end
 end
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% DRAW SIDE STIMULUS %%%%%%%%%%%%%%%%%%%%%%%%%
 stim(1).dstRect = dstRect_stop;
@@ -126,7 +137,7 @@ if length(stim) == 2
     stim(2).dstRect = dstRect_nonmatch;
 end
 
-drawMultiTextures(screenInfo, duration, stim)
+drawMultiTextures(screenInfo, duration, stim(1:2))
 
 %%%%%%%%%%%%%%%%%%%%% REFRESH SCREEN BACK TO BACKGRAOUD %%%%%%%%%%%%%%%%%%%
 drawMultiTextures(screenInfo, 0.02)

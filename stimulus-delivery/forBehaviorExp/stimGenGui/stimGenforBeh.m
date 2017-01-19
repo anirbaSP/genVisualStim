@@ -91,7 +91,7 @@ connectionS =commu2host('initiateSendConnection');
 
 handles.connection.receive = connectionR; 
 handles.connection.send = connectionS;
-% handles.connection = [];
+%handles.connection = [];
 
 set(handles.hostConnected, 'Value', 0);
 
@@ -117,6 +117,7 @@ handles.stimType = initState.defaultStimType;
 handles.vsPool = [];
 handles.vsTrial = [];
 handles.header = initState.header;
+handles.sudoHeader = initState.sudoHeader;
 
 handles.delay = initState.delay;
 handles.duration = initState.duration;
@@ -380,7 +381,9 @@ header = handles.header;
 vsPool = handles.vsPool;
 vsTrial = handles.vsTrial;
 fullname = [handles.filePath filesep handles.fileName '.m'];
-save(fullname, 'header', 'vsPool', 'vsTrial', '-mat'); % save vsPool
+if handles.autoSave
+    save(fullname, 'header', 'vsPool', 'vsTrial', '-mat'); % save vsPool
+end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%% initialize the SCREEN %%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -511,7 +514,7 @@ function handles = getHeaderFromHost(handles)
 % fileName, etc. as needed.
 if ~isempty(handles.connection)
     header = commu2host('getHeader', handles.connection.receive);
-else header = 'stimType&DelayedMatchToSample&&fileName&debughost&&delay&500000&&';
+else header = handles.sudoHeader;
 end
 if isempty(header)
     set(handles.hostConnected, 'Value', 0);
