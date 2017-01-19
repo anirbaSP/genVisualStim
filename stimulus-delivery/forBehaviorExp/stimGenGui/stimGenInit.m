@@ -48,7 +48,7 @@ initState.header = '';
 initState.fileName = 'debug';
 
 % Set the default trial state (1 = true (save) 0 = false (don't save)
-initState.autoSave = 1;
+initState.autoSave = 0;
 
 initState.sudoTrial = ...
     {'1','2', '0', '1', '0', 'stop', };% 0 is repeat 'Blank', '2', '1', 'repeat', 'stop'};

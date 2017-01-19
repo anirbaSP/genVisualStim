@@ -86,12 +86,12 @@ initState = stimGenInit();
 % give % the flexibility for host computer to send out data any time, it's
 % beter % to get the vs computer ready as early as possible.
 
-connectionR = commu2host('initiateReceiveConnection'); 
-connectionS =commu2host('initiateSendConnection');
-
-handles.connection.receive = connectionR; 
-handles.connection.send = connectionS;
-% handles.connection = [];
+% connectionR = commu2host('initiateReceiveConnection'); 
+% connectionS =commu2host('initiateSendConnection');
+% 
+% handles.connection.receive = connectionR; 
+% handles.connection.send = connectionS;
+handles.connection = [];
 
 set(handles.hostConnected, 'Value', 0);
 
@@ -380,7 +380,9 @@ header = handles.header;
 vsPool = handles.vsPool;
 vsTrial = handles.vsTrial;
 fullname = [handles.filePath filesep handles.fileName '.m'];
-save(fullname, 'header', 'vsPool', 'vsTrial', '-mat'); % save vsPool
+if handles.autoSave
+    save(fullname, 'header', 'vsPool', 'vsTrial', '-mat'); % save vsPool
+end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%% initialize the SCREEN %%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
