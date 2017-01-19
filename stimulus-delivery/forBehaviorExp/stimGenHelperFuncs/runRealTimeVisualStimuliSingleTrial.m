@@ -112,7 +112,7 @@ switch stimType
         % generate a second unmatched stimulus
         if length(vsPool) > 1
             while length(thisStimIdx) == 1
-                tmp = ceil(rand * length(vsPool)); % randomly choose adistractor
+                tmp = ceil(rand * length(vsPool)); % randomly choose a distractor
                 if ~isequal(tmp, thisStimIdx)
                     thisStimIdx(2) = tmp;
                 end

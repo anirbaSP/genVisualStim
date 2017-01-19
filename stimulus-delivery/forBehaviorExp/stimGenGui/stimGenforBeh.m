@@ -117,6 +117,7 @@ handles.stimType = initState.defaultStimType;
 handles.vsPool = [];
 handles.vsTrial = [];
 handles.header = initState.header;
+handles.sudoHeader = initState.sudoHeader;
 
 handles.delay = initState.delay;
 handles.duration = initState.duration;
@@ -513,7 +514,7 @@ function handles = getHeaderFromHost(handles)
 % fileName, etc. as needed.
 if ~isempty(handles.connection)
     header = commu2host('getHeader', handles.connection.receive);
-else header = 'stimType&DelayedMatchToSample&&fileName&debughost&&delay&500000&&';
+else header = handles.sudoHeader;
 end
 if isempty(header)
     set(handles.hostConnected, 'Value', 0);
