@@ -28,17 +28,17 @@
 % Written by MSC 6-15-12
 % Modified by:
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function MouseControlledGrating(table)
+%function MouseControlledGrating(table)
 %%%%%%%%%%%%%%%%%%%%%% DEFAULTS FOR TESTING %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %UNCOMMENT THIS SECTION FOR RUNNING STIMULUS AS STAND ALONE; COMMENT ABOVE
 %CONFLICTING FUNCTION
-%  function MouseControlledGrating(table)
-% if nargin<1
-%     table = {'Background Shade', 127, [], [];...
-%              'Initial Grating Diameter (degs)', 20, [], [];...
-%              'Initial Grating Angle (degs)', 0, [], [];...
-%              'Spatial Frequency (cpd)', .08, [], []};
-% end
+ function MouseControlledGrating(table)
+if nargin<1
+    table = {'Background Shade', 127, [], [];...
+             'Initial Grating Diameter (degs)', 20, [], [];...
+             'Initial Grating Angle (degs)', 0, [], [];...
+             'Spatial Frequency (cpd)', .08, [], []};
+end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Get monitor info from monitorInformation located in RigSpecificInfo dir.
@@ -140,7 +140,7 @@ Screen('Preference', 'VisualDebuglevel', 3);
     % Open a window and return a pointer w
     [w] = Screen('OpenWindow', screenNumber,  BGShade);
     % Hide the mouse cursor from the screen
-    HideCursor;
+    % HideCursor;
     
 
 %%%%%%%%%%%%%%%%%%%%%%% CREATE AND DRAW TEXTURES %%%%%%%%%%%%%%%%%%%%%%%%%%

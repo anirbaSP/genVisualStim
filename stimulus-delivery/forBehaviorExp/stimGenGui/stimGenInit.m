@@ -35,7 +35,8 @@ initState.defaultStimType = 'DelayedMatchToSample';
 initState.defaultStimTypes = {'Left Right Full-field Drifting Grating';
     'LeftRightMovingVS';
     'DelayedMatchToSampleMove';
-    'DelayedMatchToSample'};
+    'DelayedMatchToSample';
+    'MatchToCenter'};
 
 % Set the default table matching the above stimulus
 % initState.defaultTable = ...
@@ -54,8 +55,8 @@ initState.sudoTrial = ...
     {'1','2', '0', '1', '0', 'stop', };% 0 is repeat 'Blank', '2', '1', 'repeat', 'stop'};
 
 initState.delay = -500000; % unit: us
-initState.duration = 1;
+initState.duration = 0.5;
 
-initState.sudoHeader = 'stimType&DelayedMatchToSample&&fileName&debughost&&delay&-500000&&';
+initState.sudoHeader = 'stimType&DelayedMatchToSample&&fileName&debughost&&delay&-500000&&orientation&  0 90 90&&';
 end
 

@@ -14,7 +14,7 @@
 % you should have received a copy of the gnu general public license
 % along with this program.  if not, see <http://www.gnu.org/licenses/>.
 
-function drawMultiTextures(screenInfo, duration, stim)
+function drawMultiTextures(screenInfo, duration, stim, flipCheckON)
 % This function draw the texture on the screen. if there are only the first
 % two inputs, the function will draw a gray screen with specified duration.
 % INPUTS:
@@ -37,6 +37,9 @@ function drawMultiTextures(screenInfo, duration, stim)
 %
 
 %%%%%%%%%%%%%%%%%%%%%%%%%% PREPARE SCREEN INFO %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+if nargin == 3
+    flipCheckON = true;
+end
 
 w = screenInfo.w;
 waitframes = screenInfo.waitframes;
@@ -121,8 +124,10 @@ while (vbl < runtime)
             
         % Draw a box at the bottom right of the screen to record all screen
         % flips using a photodiode. Please see the file FlipCheck.m in the
+        if flipCheckON
         % stimulus directory for further explanation
         FlipCheck(w, screenRect, [frameON, frameOFF], n)
+        end
     else % draw a gray screen
         Screen('FillRect', w, screenInfo.grayPix);
     end

@@ -4,7 +4,7 @@ function grating = genGrating(spaceFreq, contrast, szInDegree)
 % We need the contrast and the spatial frequency. 
 % INPUT:
 %
-
+%spaceFreq = 0.08; contrast = 1; szInDegree = 20;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Written by PSX/10-08-2016 (based on Matthew Caudill 2012)
 % Modified by: PSX/

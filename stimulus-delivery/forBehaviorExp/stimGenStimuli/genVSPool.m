@@ -14,7 +14,7 @@
 % you should have received a copy of the gnu general public license along
 % with this program.  if not, see <http://www.gnu.org/licenses/>.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function vsPool = genVSPool(screenInfo)
+function vsPool = genVSPool(screenInfo, vs)
 % This function generates a pool of visual stimulation. Currently it
 % supports drifting gratings.
 % INPUTS:
@@ -33,8 +33,8 @@ ifi = screenInfo.ifi;
 
 % Currently the default stimulus are defined by the following table
 
-table = {'Spatial Frequency (cpd)', 0.04, .04, 0.04;...
-    'Temporal Frequency (cps)', 3, 1, 3;...
+table = {'Spatial Frequency (cpd)', 0.08, .08, 0.08;...
+    'Temporal Frequency (cps)', 0, 0, 0; ... %3, 1, 3;...
     'Contrast (start,end,numsteps)', 1, 1, 1;...
     'Orientation', 0, 90, 90;...
     'Timing (delay,duration,wait) (s)', 0, 0, 0;...
@@ -44,6 +44,11 @@ table = {'Spatial Frequency (cpd)', 0.04, .04, 0.04;...
     'Repeats', 0, [], [];...
     'Initialization Screen (s)', 0, [],[]};
 stimType = 'Full-field Grating';
+
+%update orinetation parameters
+table{4,2} = vs.orientation(1);
+table{4,3} = vs.orientation(2);
+table{4,4} = vs.orientation(3);
 
 trial = trialStruct(stimType, table);
 n_trial = length(trial);

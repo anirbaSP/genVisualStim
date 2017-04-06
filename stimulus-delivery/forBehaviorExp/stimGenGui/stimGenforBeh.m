@@ -221,8 +221,10 @@ else
     screenInfo = initializeScreen;
     handles.screenInfo = screenInfo;
 end
+
+vs.orientation = handles.orientation;
     
-vsPool = genVSPool(screenInfo); 
+vsPool = genVSPool(screenInfo, vs); 
 % to do: add front pannel to specify what will be in the stimulus pool
 
 handles.vsPool = vsPool;
@@ -466,14 +468,14 @@ function start_Callback(hObject, eventdata, handles)
 
 % Hint: get(hObject,'Value') returns toggle state of start
 
-if isempty(handles.vsPool)
-    handles = gen_vs_pool_Callback(hObject, eventdata, handles);
-end
-
 % get header from the host, and update stimType and to-be-saved fileName
 
 handles = getHeaderFromHost(handles);
 handles = updateStimTypeFileNameDelayfromHeader(hObject, handles);
+
+if isempty(handles.vsPool)
+    handles = gen_vs_pool_Callback(hObject, eventdata, handles);
+end
 
 % starting saving file
 savefile_Callback(hObject, eventdata, handles, 0)
@@ -560,7 +562,7 @@ end
 function handles = ...
     updateStimTypeFileNameDelayfromHeader(hObject, handles)
 header = handles.header;
-h = readHeader(header, {'stimType', 'fileName', 'delay'});
+h = readHeader(header, {'stimType', 'fileName', 'delay', 'orientation'});
 
 % update stimTypeBox
 % Get the cell array of all strings in the listbox
@@ -576,6 +578,9 @@ handles.fileName = h.fileName;
 
 % update delay
 handles.delay = str2num(h.delay);
+
+% update orientation
+handles.orientation = str2num(h.orientation);
 
 % Update handles structure
 guidata(hObject, handles);

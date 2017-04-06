@@ -132,6 +132,18 @@ switch stimType
         end
         DelayedMatchToSample(thisKey,screenInfo,vsPool(thisStimIdx), ...
             duration, delay)
+        case 'MatchToCenter'
+        % generate a second unmatched stimulus
+        if length(vsPool) > 1
+            while length(thisStimIdx) == 1
+                tmp = ceil(rand * length(vsPool)); % randomly choose adistractor
+                if ~isequal(tmp, thisStimIdx)
+                    thisStimIdx(2) = tmp;
+                end
+            end
+        end
+        MatchToCenter(thisKey,screenInfo,vsPool(thisStimIdx), ...
+            duration, delay)
     otherwise
         error('Undefined stimulus type')
         %       case 'Blank'

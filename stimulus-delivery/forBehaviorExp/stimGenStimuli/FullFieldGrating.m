@@ -14,6 +14,7 @@
 %you should have received a copy of the gnu general public license
 %along with this program.  if not, see <http://www.gnu.org/licenses/>.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 function KbCheckFlag = FullFieldGrating(trial, screenInfo)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %This function generates and draws various visual stimuli with parameters
@@ -35,6 +36,7 @@ function KbCheckFlag = FullFieldGrating(trial, screenInfo)
 %%%%%%%%%%%%%%%%%%%%%% DEFAULTS FOR TESTING %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %UNCOMMENT THIS SECTION FOR RUNNING STIMULUS AS STAND ALONE; COMMENT ABOVE
 %CONFLICTING FUNCTION FULLFIELDGRATING(TRIALS)
+%++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 % function [trials] = FullFieldGrating(stimType,table)
 % if nargin<1
 %     table = {'Spatial Frequency (cpd)', 0.04, .04, 0.04;...
@@ -46,14 +48,15 @@ function KbCheckFlag = FullFieldGrating(trial, screenInfo)
 %               'Randomize', 0, [], [];...
 %               'Interleave', 0, [], [];...
 %               'Repeats', 0, [], [];...
-%               'Initialization Screen (s)', 5, [],[]};
+%               'Initialization Screen (s)', 0, [],[]};
 %    stimType = 'Full-field Grating';
-%
+% 
 % end
 % trials = trialStruct(stimType, table);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%% GET SPECIFIC MONITOR INFORMATION %%%%%%%%%%%%%%%%%%%
+%screenInfo = initializeScreen; %++++++++++++++++++++++++++++++++++++++++++
 w = screenInfo.w;
 whiteLum = screenInfo.whiteLum;
 grayLum = screenInfo.grayLum;
